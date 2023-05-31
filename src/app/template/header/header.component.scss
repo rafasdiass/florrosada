@@ -1,0 +1,12 @@
+.banner-container {
+  height: 300px; /* Ajuste a altura desejada para o banner */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Isso vai esconder qualquer coisa que saia dos limites do contêiner */
+}
+
+.banner-image {
+  max-height: auto; /* Ajuste a altura máxima da imagem para 100% do contêiner */
+  width: auto; /* Isso permitirá que a imagem mantenha suas proporções originais */
+}
