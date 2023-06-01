@@ -1,0 +1,28 @@
+mat-toolbar {
+  background-color: rgb(194, 194, 194);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1em;
+
+  button {
+    color: #FFB6C1;  // LightPink color
+    font-size: 1.2em;
+    margin-right: 1em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+}
+
+mat-menu {
+  app-cart {
+    width: 300px;
+    max-width: 100%;
+  }
+}

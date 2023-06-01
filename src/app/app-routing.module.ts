@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NavbarComponent } from './template/navbar/navbar.component';
 import { HeaderComponent } from './template/header/header.component';
 import { FooterComponent } from './template/footer/footer.component';
 
 const routes: Routes = [
-
-  { path: 'header', component: HeaderComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HeaderComponent },
   { path: 'footer', component: FooterComponent },
-
+  // outras rotas aqui
 ];
 
 @NgModule({

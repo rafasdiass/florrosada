@@ -1,1 +1,46 @@
-<p>cart works!</p>
+<mat-card class="container">
+  <mat-card-title>Carrinho de Compras</mat-card-title>
+  <mat-table [dataSource]="cartService.cart?.products ?? []" class="mat-elevation-z8">
+
+    <!-- Colunas da Tabela -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="unit_price">
+      <mat-header-cell *matHeaderCellDef>Preço</mat-header-cell>
+      <mat-cell *matCellDef="let item">R$ {{ item.unit_price | number:'1.2-2' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef>Quantidade</mat-header-cell>
+      <mat-cell *matCellDef="let item">
+        <button mat-button (click)="decreaseItemQuantity(item.id)" color="primary">-</button>
+        {{ item.quantity }}
+        <button mat-button (click)="increaseItemQuantity(item.id)" color="primary">+</button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="subtotal">
+      <mat-header-cell *matHeaderCellDef>Subtotal</mat-header-cell>
+      <mat-cell *matCellDef="let item">R$ {{ (item.unit_price * item.quantity) | number:'1.2-2' }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-radio-group name="deliveryOption" (change)="changeDeliveryOption($event.value)" value="pickup">
+    <mat-radio-button value="pickup">Retirada no balcão</mat-radio-button>
+    <mat-radio-button value="delivery">Entrega (R$ 10,00)</mat-radio-button>
+  </mat-radio-group>
+
+  <div class="text-right">
+    <h3>Subtotal: R$ {{ cartService.cart?.subtotal | number:'1.2-2' }}</h3>
+    <h3>Taxa de Entrega: R$ {{ cartService.getDeliveryFee() | number:'1.2-2' }}</h3>
+    <h3>Total: R$ {{ cartService.getTotalCost() | number:'1.2-2' }}</h3>
+    <button mat-raised-button (click)="addMoreItems()" class="mr-2">Adicionar mais itens</button>
+    <button mat-raised-button color="primary" (click)="checkout()">Continuar Compra</button>
+  </div>
+</mat-card>

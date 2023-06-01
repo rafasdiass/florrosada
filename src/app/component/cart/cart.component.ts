@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../service/cart.service';
 import { Router } from '@angular/router';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-cart',
@@ -8,14 +9,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
+  displayedColumns: string[] = ['name', 'unit_price', 'quantity', 'subtotal'];
+  dataSource = this.cartService.cartItems ?? [];
 
   constructor(public cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
+    if (this.cartService.cartItems) {
+      this.dataSource = this.cartService.cartItems;
+    } else {
+      this.dataSource = []; // ou algum outro valor padrão
+    }
   }
 
-  changeDeliveryOption(option: string): void {
-    this.cartService.setDeliveryOption(option);
+  changeDeliveryOption(event: MatRadioChange): void {
+    this.cartService.setDeliveryOption(event.value);
   }
 
   decreaseItemQuantity(productId: string): void {
@@ -32,6 +40,6 @@ export class CartComponent implements OnInit {
   }
 
   addMoreItems(): void {
-    this.router.navigate(['/']); // Aqui você pode alterar o caminho de rota para a página desejada
+    this.router.navigate(['/']); // Altere o caminho de rota para a página desejada
   }
 }
